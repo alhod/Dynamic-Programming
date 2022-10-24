@@ -1,0 +1,73 @@
+// imports
+import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+public class Fibonacci
+{
+
+    // Memoization
+    public static long fibMemo(long n, HashMap<Long, Long>memo){
+
+        // Check if already computed this subproblem
+        if(memo.containsKey(n)){
+
+            // if so, return stored value
+            return memo.get(n);
+        }
+        
+        // fib(1)=1 and fib(2)=1, so we used them as base cases
+        if(n==1||n==2){
+            return 1;
+        }
+        
+        // add nth fibonacci value to memo table
+        memo.put(n, fibMemo(n-1, memo)+fibMemo(n-2, memo));
+
+        // return nth fibonacci value
+        return memo.get(n);
+    }
+    // Memoization
+
+
+    // Tabulation
+    public static long fibTab(long n){
+
+        // Create tabulation table
+        ArrayList<Long> tab = new ArrayList<Long>();
+
+        // Add base cases (we add 0 because first index is 0)
+        tab.add((long) 0);  // *We must cast to long type*
+        tab.add((long) 1);
+        tab.add((long) 1);
+
+        // Iterate from [2...n] and use formula fib(i)=fib(i-1)+fib(i-2)
+        for(long i=2; i<=n; i++){
+            tab.add(tab.get(tab.size()-1)+tab.get(tab.size()-2));
+        }
+
+        // Return answer
+        return tab.get((int)n);  // *We must cast to int type*
+    }
+    // Tabulation
+
+
+    public static void main(String args[]){
+
+        // Create memo table
+        HashMap<Long, Long>memo=new HashMap<Long, Long>();
+        
+        // Input
+        Scanner input = new Scanner(System.in);
+        System.out.println("Index of Fibonacci number: ");
+        long n = input.nextInt();  // We use "long" instead of "int" because it's bigger
+
+        // Print answer
+        System.out.println("Memoized solution: "+fibMemo(n, memo));
+        System.out.println("Tabulated solution: "+fibTab(n));
+
+        // Close Scanner
+        input.close();
+        
+    }
+}
