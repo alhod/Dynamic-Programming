@@ -1,0 +1,42 @@
+
+# Memoization
+
+
+memo = {1: 1, 2: 1}  # create memoization table
+
+def fibMemo(n):  # recursive function
+    if(n in memo):  # check if we already computed n
+        return memo[n]  # if so, return the stored value
+
+    memo[n]=fibMemo(n-1)+fibMemo(n-2)  # compute value and store in table
+    return memo[n];  # return value
+
+
+# Memoization
+
+
+
+
+
+# Tabulation
+
+
+def fibTab(n):
+    tab=[0, 1, 1]  # create tabulation table
+    for i in range(2, n+1):  # iterate from [2...n]
+        tab.append(tab[-1]+tab[-2])  # append the sum of the last two values
+    
+    return tab[n];  # return answer
+
+
+# Tabulation
+
+
+# Input
+n = int(input('Index of fibonacci sequence: '));
+print('Memoized solution:', fibMemo(n));
+print('Tabulated solution: ', fibTab(n));
+
+
+
+
