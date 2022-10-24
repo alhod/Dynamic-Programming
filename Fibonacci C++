@@ -1,42 +1,80 @@
-// imports
-#include<bits/stdc++.h>
-#define ll long long
+#include<bits/stdc++.h>  // imports
 using namespace std;
 
-// function that returns nth fibonacci number
-ll fib(ll n, map<ll, ll>&m){
 
-    // since the 1st and 2nd fibonacci numbers are both one, 
-    // we can use them as base cases
+// memoized solution
+long long fibMemo(long long n, map<long long, long long>&memo){  // get n and 
+
+
+    // 1st and 2nd fibonacci number always 1, so use as base case
     if(n==1||n==2){
         return 1;
     }
 
-    // check if we have already computed this subproblem
-    if(m[n]!=0){
+
+    // check if already computed this subproblem
+    if(memo[n]!=0){
+        
         // if so, return the solution
-        return m[n];
+        return memo[n];
     }
 
+
     // since fib(n)=fib(n-1)+fib(n-2), we can solve for nth
-    // fibonacci number by making this call, then store the
+    // fibonacci number by making this calong long, then store the
     // solution in the table
-    return m[n]=fib(n-1, m)+fib(n-2, m);
+    return memo[n]=fibMemo(n-1, memo)+fibMemo(n-2, memo);
+
+
 }
+// memoized solution
+
+
+
+// tabulated solution
+long long fibTab(long long n){
+    
+
+    // create tabulation table
+    vector<long long>tab(n+2);
+
+
+    // set base cases
+    tab[1]=1;
+    tab[2]=1;
+
+
+    // iterate from [2...n], and use formula fib(i)=fib(i-1)+fib(i-2)
+    for(long long i=2; i<=n; i++){
+        tab[i]=tab[i-1]+tab[i-2];
+    }
+
+
+    // return answer
+    return tab[n];
+
+
+}
+// tabulated solution
+
+
 
 // main function
 int main(){
 
     // get input
-    cout<<"Input an index of a Fibonacci number: "<<endl;
-    ll n;
+    cout<<"Index of Fibonacci number: "<<endl;
+    long long n;
     cin>>n;
     
-    // initialize table
-    map<ll, ll>m;
+    
+    // memoization table
+    map<long long, long long>memo;
+    
     
     // print answer
-    cout<<fib(n, m)<<endl;
+    cout<<"Memoized solution: "<<fibMemo(n, memo)<<endl;
+    cout<<"Tabulated solution: "<<fibTab(n)<<endl;
     
     return 0;
 }
