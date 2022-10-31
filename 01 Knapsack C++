@@ -1,0 +1,118 @@
+// imports
+#include<bits/stdc++.h>
+using namespace std;
+
+
+
+// Memoized solution
+int knapsackMemoization(int i, int j, int wt[], int val[]){
+
+    // check for base cases
+    if(i==-1||j==0){
+        return 0;
+    }
+
+    // if item weight exceeds current capacity
+    if(wt[i]>j){
+        // return previous optimal way to fill capacity of j
+        return knapsackMemoization(i-1, j, wt, val);
+    } 
+    
+    // if current item fits in curent knapsack
+    else {
+        // optimal substructure
+        return max(val[i]+knapsackMemoization(i-1, j-wt[i], wt, val), knapsackMemoization(i-1, j, wt, val));
+    }
+
+}
+// Memoized solution
+
+
+
+// Tabulated solution
+int knapsackTabulation(int n, int w, int wt[], int val[]){
+
+    // create tabulation table
+    vector<vector<int>>tab(n+1, vector<int>(w+1));
+
+    // iterate through item indices
+    for(int i=1; i<=n; i++){
+
+        // iterate through knapsack capacities
+        for(int j=1; j<=w; j++){
+
+            // if item weight exceeds current capacity
+            if(wt[i-1]>j){
+                // get previous most optimal way to fill knapsack of capacity j
+                tab[i][j]=tab[i-1][j];
+            } 
+            
+            // if item fits in current knapsack
+            else {
+                // optimal substructure
+                tab[i][j]=max(tab[i-1][j], val[i-1]+tab[i-1][j-wt[i-1]]);
+            }
+        }
+    }
+
+    return tab[n][w];
+}
+// Tabulated solution
+
+
+
+// Tabulated solution (2*W space complexity)
+int knapsackTabulationMod(int n, int w, int wt[], int val[]){
+
+    // Only difference is the "%2" beside "i"s when indexing into tabulation table.
+    // Notice how previous tabulated solution really only requires two rows at a time:
+    // The current and previous rows. Therefore, we can manage with only two rows,
+    // and bring the space complexity down from n*W to 2*W.
+
+    vector<vector<int>>tab(2, vector<int>(w+1));
+
+    for(int i=1; i<=n; i++){
+        for(int j=1; j<=w; j++){
+            if(wt[i-1]>j){
+                tab[i%2][j]=tab[(i-1)%2][j];
+            } else {
+                tab[i%2][j]=max(tab[(i-1)%2][j], val[i-1]+tab[(i-1)%2][j-wt[i-1]]);
+            }
+        }
+    }
+
+    return tab[n][w];
+}
+// Tabulated solution (2*W space complexity)
+
+
+
+
+// main function
+int main()
+{
+    //reading number of elements and weight
+    int n, w;
+    cin>>n>>w;
+
+    // arrays
+    int val[n];
+    int wt[n];
+
+    //inserting the values
+    for(int i=0;i<n;i++){
+        cin>>val[i];
+    }
+
+    //inserting the weights
+    for(int i=0;i<n;i++){
+        cin>>wt[i];
+    }
+    
+    // printing answer
+    cout<<"Memoized solution: "<<knapsackMemoization(n-1, w, wt, val)<<endl;
+    cout<<"Tabulated solution: "<<knapsackTabulation(n, w, wt, val)<<endl;
+    cout<<"Tabulated solution (2*W space complexity): "<<knapsackTabulationMod(n, w, wt, val)<<endl;
+
+	return 0;
+}
