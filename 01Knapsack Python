@@ -1,6 +1,9 @@
+# initialize memo table as global variable
+memo = {};
+
 
 # Memoized solution
-def knapsackMemoization(i, j, wt, val, memo):
+def knapsackMemoization(i, j, wt, val):
 
 
     # check if already computed this state
@@ -19,7 +22,7 @@ def knapsackMemoization(i, j, wt, val, memo):
     if(wt[i]>j):
 
         # get previously most optimal way to fill knapsack of capacity j, and store in memo table
-        memo[(i, j)]=knapsackMemoization(i-1, j, wt, val, memo)
+        memo[(i, j)]=knapsackMemoization(i-1, j, wt, val)
 
         # return solution
         return memo[(i, j)]
@@ -29,7 +32,7 @@ def knapsackMemoization(i, j, wt, val, memo):
     else:
 
         # use state transition, and store solution in memo table
-        memo[(i, j)]=max(val[i]+knapsackMemoization(i-1, j-wt[i], wt, val, memo), knapsackMemoization(i-1, j, wt, val, memo))
+        memo[(i, j)]=max(val[i]+knapsackMemoization(i-1, j-wt[i], wt, val), knapsackMemoization(i-1, j, wt, val))
         
         # return solution
         return memo[(i, j)]
@@ -140,11 +143,7 @@ for i in range(1, W+1):
     wt.append(int(input(f"Input weight of {i}th item: ")))
 
 
-# create memoization table
-memo = {};
-
-
 # print answers
-print("Memoized solution:", knapsackMemoization(n-1, W, wt, val, memo))
+print("Memoized solution:", knapsackMemoization(n-1, W, wt, val))
 print("Tabulated solution:", knapsackTabulation(n, W, wt, val))
 print("Tabulated solution (2*W space complexity):", knapsackTabulationMod(n, W, wt, val))
