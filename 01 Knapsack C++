@@ -84,7 +84,7 @@ int knapsackTabulation(int n, int w, int wt[], int val[]){
 
 
 // Tabulated solution (2*W space complexity)
-int knapsackTabulationMod(int n, int w, int wt[], int val[]){
+int knapsackTabulationOptimized(int n, int w, int wt[], int val[]){
 
 
     // Only difference is the "%2" beside "i"s when indexing into tabulation table.
@@ -157,7 +157,7 @@ int main()
     // printing answer
     cout<<"Memoized solution: "<<knapsackMemoization(n-1, w, wt, val, memo)<<endl;
     cout<<"Tabulated solution: "<<knapsackTabulation(n, w, wt, val)<<endl;
-    cout<<"Tabulated solution (2*W space complexity): "<<knapsackTabulationMod(n, w, wt, val)<<endl;
+    cout<<"Tabulated solution (2*W space complexity): "<<knapsackTabulationOptimized(n, w, wt, val)<<endl;
 
 	return 0;
 }
