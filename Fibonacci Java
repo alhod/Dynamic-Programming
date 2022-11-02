@@ -60,7 +60,7 @@ public class Fibonacci
 
         // Iterate from 3 to n and use formula fib(i)=fib(i-1)+fib(i-2)
         for(int i=3; i<=n; i++){
-            tab[i]=(tab[i-1]+tab[i-2]);
+            tab[i]=tab[i-1]+tab[i-2];
         }
 
 
