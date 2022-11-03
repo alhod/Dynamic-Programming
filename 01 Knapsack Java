@@ -179,7 +179,7 @@ public class Knapsack
 
         // create weight array
         int[]wt;
-        wt = new int[W];
+        wt = new int[n];
 
         
         // create memo table
