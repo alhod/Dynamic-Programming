@@ -1,6 +1,6 @@
-// Works for all n up until a bit below 100
-// If add modulus, works for n up to around 7000 (stack overflow if greater, do to recursion)
-// To go greater, refrain from calling fibMemo (but keep the modulus)
+// Works for all n-values up until a bit below 100 (fibonacci value exceeds Long.MAX_VALUE if greater)
+// If add modulus (e.g. %1000, so only see last 3 digits), works for n up to around 7000 (stack overflow if greater, due to recursion)
+// To go greater, only call fibTab (but keep the modulus)
 
 // imports
 import java.util.Scanner;
