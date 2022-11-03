@@ -22,7 +22,7 @@ public class Fibonacci
 
 
         // Check if already computed this subproblem
-        if(Global.memo.containsKey(n)){
+        if(Global.memo.containsKey(n)==true){
 
             // if so, return stored value
             return Global.memo.get(n);
