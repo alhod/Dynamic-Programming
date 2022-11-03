@@ -203,7 +203,7 @@ public class Knapsack
         }
 
         // input weights
-        for(int i=1; i<W+1; i++){
+        for(int i=1; i<n+1; i++){
             System.out.printf("Input the weight of the %dth number: \n", i);
             int tmp=input.nextInt();
             wt[i-1]=tmp;
